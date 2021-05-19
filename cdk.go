@@ -26,8 +26,7 @@ func NewGoCDKDemoFunctionStack(scope constructs.Construct, id string, props *Dem
 		Timeout:      awscdk.Duration_Seconds(jsii.Number(30)),
 		Tracing:      awslambda.Tracing_ACTIVE,
 		Environment: &map[string]*string{
-			"REGION": jsii.String("us-east-1"),
-			"TZ":     jsii.String("Asia/Tokyo"),
+			"TZ": jsii.String("Asia/Tokyo"),
 		},
 	})
 	return stack

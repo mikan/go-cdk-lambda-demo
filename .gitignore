@@ -21,3 +21,6 @@ cdk.out
 # GoLand
 .idea
 
+# Deploy package
+hello
+hello.zip

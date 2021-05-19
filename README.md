@@ -1,14 +1,19 @@
-# Welcome to your CDK Go project!
+# go-cdk-lambda-demo
 
-This is a blank project for Go development with CDK.
+This is a demo of deploying Lambda written in Go using Go CDK.
 
-**NOTICE**: Go support is still in Developer Preview. This implies that APIs may
-change while we address early feedback from the community. We would love to hear
-about your experience through GitHub issues.
+## Build and deploy
 
-## Useful commands
+```
+GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o hello cmd/hello/main.go
+zip hello hello.zip
+cdk deploy
+```
 
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
- * `go test`         run unit tests
+## License
+
+[Apache License 2.0](LICENSE)
+
+## Author
+
+[mikan](https://github.com/mikan)

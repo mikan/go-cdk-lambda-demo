@@ -2,41 +2,44 @@ package main
 
 import (
 	"github.com/aws/aws-cdk-go/awscdk"
-	"github.com/aws/aws-cdk-go/awscdk/awssns"
+	"github.com/aws/aws-cdk-go/awscdk/awslambda"
 	"github.com/aws/constructs-go/constructs/v3"
 	"github.com/aws/jsii-runtime-go"
 )
 
-type GoCdkLambdaDemoStackProps struct {
+type DemoFunctionStackProps struct {
 	awscdk.StackProps
 }
 
-func NewGoCdkLambdaDemoStack(scope constructs.Construct, id string, props *GoCdkLambdaDemoStackProps) awscdk.Stack {
+func NewGoCDKDemoFunctionStack(scope constructs.Construct, id string, props *DemoFunctionStackProps) awscdk.Stack {
 	var sprops awscdk.StackProps
 	if props != nil {
 		sprops = props.StackProps
 	}
 	stack := awscdk.NewStack(scope, &id, &sprops)
-
-	// The code that defines your stack goes here
-
-	// as an example, here's how you would define an AWS SNS topic:
-	awssns.NewTopic(stack, jsii.String("MyTopic"), &awssns.TopicProps{
-		DisplayName: jsii.String("MyCoolTopic"),
+	awslambda.NewFunction(stack, jsii.String("GoCDKDemoFunction"), &awslambda.FunctionProps{
+		Code:         awslambda.NewAssetCode(jsii.String("hello.zip"), nil),
+		Handler:      jsii.String("hello"),
+		Description:  jsii.String("Demo Lambda with Go CDK"),
+		FunctionName: jsii.String("GoCDKDemoFunction"),
+		Runtime:      awslambda.Runtime_GO_1_X(),
+		Timeout:      awscdk.Duration_Seconds(jsii.Number(30)),
+		Tracing:      awslambda.Tracing_ACTIVE,
+		Environment: &map[string]*string{
+			"REGION": jsii.String("us-east-1"),
+			"TZ":     jsii.String("Asia/Tokyo"),
+		},
 	})
-
 	return stack
 }
 
 func main() {
 	app := awscdk.NewApp(nil)
-
-	NewGoCdkLambdaDemoStack(app, "GoCdkLambdaDemoStack", &GoCdkLambdaDemoStackProps{
+	NewGoCDKDemoFunctionStack(app, "GoCDKDemoFunctionStack", &DemoFunctionStackProps{
 		awscdk.StackProps{
 			Env: env(),
 		},
 	})
-
 	app.Synth(nil)
 }
 

@@ -9,12 +9,12 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func TestGoCdkLambdaDemoStack(t *testing.T) {
+func TestGoCDKDemoFunctionStack(t *testing.T) {
 	// GIVEN
 	app := awscdk.NewApp(nil)
 
 	// WHEN
-	stack := NewGoCdkLambdaDemoStack(app, "MyStack", nil)
+	stack := NewGoCDKDemoFunctionStack(app, "MyStack", nil)
 
 	// THEN
 	bytes, err := json.Marshal(app.Synth(nil).GetStackArtifact(stack.ArtifactId()).Template())
@@ -23,6 +23,6 @@ func TestGoCdkLambdaDemoStack(t *testing.T) {
 	}
 
 	template := gjson.ParseBytes(bytes)
-	displayName := template.Get("Resources.MyTopic86869434.Properties.DisplayName").String()
-	assert.Equal(t, "MyCoolTopic", displayName)
+	displayName := template.Get("Resources.GoCDKDemoFunctionBD53E519.Properties.FunctionName").String()
+	assert.Equal(t, "GoCDKDemoFunction", displayName)
 }

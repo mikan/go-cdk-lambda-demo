@@ -23,10 +23,11 @@ func NewGoCDKDemoFunctionStack(scope constructs.Construct, id string, props *Dem
 		Description:  jsii.String("Demo Lambda with Go CDK"),
 		FunctionName: jsii.String("GoCDKDemoFunction"),
 		Runtime:      awslambda.Runtime_GO_1_X(),
+		MemorySize:   jsii.Number(128),
 		Timeout:      awscdk.Duration_Seconds(jsii.Number(30)),
 		Tracing:      awslambda.Tracing_ACTIVE,
 		Environment: &map[string]*string{
-			"TZ": jsii.String("Asia/Tokyo"),
+			"TEST": jsii.String("FOO"),
 		},
 	})
 	return stack

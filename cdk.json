@@ -1,0 +1,3 @@
+{
+  "app": "go mod download && go run go-cdk-lambda-demo.go"
+}
